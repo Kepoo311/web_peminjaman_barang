@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{asset('asset/KP.png')}}">
     {{-- @vite('resources/css/app.css') --}}
     <title>Edit barang</title>
 </head>

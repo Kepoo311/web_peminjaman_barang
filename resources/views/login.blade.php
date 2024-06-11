@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- @vite('resources/css/app.css') --}}
     <link rel="stylesheet" href="{{asset('css/build.css')}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('asset/KP.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}">
     <title>Admin Login</title>
 </head>

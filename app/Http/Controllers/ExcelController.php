@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataBarang;
 use App\Models\Peminjaman;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -111,6 +112,79 @@ class ExcelController extends Controller
             $year = Carbon::now()->year;
             $fileName = 'data_peminjaman_barang_' . $year . '.xlsx';
         }
+        $filePath = storage_path('app/' . $fileName);
+        $writer->save($filePath);
+
+        return response()->download($filePath)->deleteFileAfterSend(true);
+    }
+
+
+    public function exportBarang()
+    {
+        return $this->exportDataBarang();
+    }
+
+    private function exportDataBarang()
+    {
+        $query = DataBarang::query();
+        $data_barang = $query->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set headers
+        $headers = ['Nama Barang', 'Kode Barang'];
+        $columns = ['A', 'B'];
+        foreach ($headers as $index => $header) {
+            $sheet->setCellValue($columns[$index] . '1', $header);
+            $sheet->getColumnDimension($columns[$index])->setAutoSize(true);
+        }
+
+        // Set header style
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => 'FFCCCCCC',
+                ],
+            ],
+        ];
+        $sheet->getStyle('A1:B1')->applyFromArray($headerStyle);
+
+        $row = 2;
+        foreach ($data_barang as $data) {
+            $sheet->setCellValue('A' . $row, $data->nama_barang);
+            $sheet->setCellValue('B' . $row, $data->kode_barang);
+
+            // Apply border to each row
+            $rowCells = 'A' . $row . ':B' . $row;
+            $sheet->getStyle($rowCells)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ]);
+
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+            $year = Carbon::now()->year;
+            $fileName = 'data_barang_' . $year . '.xlsx';
         $filePath = storage_path('app/' . $fileName);
         $writer->save($filePath);
 

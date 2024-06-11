@@ -39,3 +39,4 @@ Route::get('/logout',[LoginController::class, 'logout'])->middleware(CheckLogin:
 // Route::get('/form', [SuratController::class, 'showForm'])->name('showForm');
 Route::post('/unduh', [SuratController::class, 'unduhSurat'])->middleware(CheckLogin::class)->name('unduhSurat');
 Route::post('/export-excel', [ExcelController::class,'exportAll'])->middleware(CheckLogin::class);
+Route::post('/export-barang-excel', [ExcelController::class,'exportBarang'])->middleware(CheckLogin::class);

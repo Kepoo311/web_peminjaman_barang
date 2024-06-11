@@ -10,13 +10,13 @@ class DashboardController extends Controller
 {
     public function index(){
         return view('dashboard',[
-            'dataPinjam' => Peminjaman::orderBy('created_at', 'desc')->paginate(10),
+            'dataPinjam' => Peminjaman::orderBy('created_at', 'desc')->paginate(5),
         ]);
     }
 
     public function BarangIndex(){
         return view('BarangPage.index',[
-            'dataBarang' => DataBarang::orderBy('created_at','asc')->paginate(10),
+            'dataBarang' => DataBarang::orderBy('created_at','asc')->paginate(8),
         ]);
     }
 

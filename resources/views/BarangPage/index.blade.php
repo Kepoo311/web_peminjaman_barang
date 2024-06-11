@@ -9,6 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Autour+One&family=Montserrat:wght@300&family=Nunito&family=Poppins:ital,wght@0,200;1,300&family=Quicksand&display=swap"
         rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="{{asset('asset/KP.png')}}">
     <link rel="stylesheet" href="{{asset('css/build.css')}}">
     {{-- @vite('resources/css/app.css') --}}
     <title>Dashboard</title>
@@ -69,6 +70,15 @@
             </div>
             {{ $dataBarang->links() }}
         </div>
+    </section>
+
+    <section class="flex justify-end items-end w-full pb-5">
+        <form action="/export-barang-excel" method="POST">
+        @csrf
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-600 duration-500 rounded-md p-2 shadow-md text-white font-bold mx-5">Unduh
+            data excel</button>
+        </form>
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
