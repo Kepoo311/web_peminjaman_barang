@@ -9,9 +9,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Autour+One&family=Montserrat:wght@300&family=Nunito&family=Poppins:ital,wght@0,200;1,300&family=Quicksand&display=swap"
         rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{asset('css/build.css')}}"> --}}
+    <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
     <title>Peminjaman Barang</title>
 </head>
 
@@ -40,7 +40,7 @@
 
     <script>
         var typed = new Typed('#typed', {
-            strings: ['Peminjaman Barang', 'Mau Pinjam Mobil?', 'Mau Pinjam Leptop?', 'Mau Pinjam HT?', 'Mau Pinjam Printer?', 'Mau Pinjam PC?','Tinggal isi form!'],
+            strings: ['Peminjaman Barang', 'Mau Pinjam Mobil?', 'Mau Pinjam Motor?', 'Mau Pinjam LCD?', 'Mau Pinjam Video Tron?', 'Dan yang lainnya?','Tinggal isi form!'],
             smartBackspace: true, // Default value
             typeSpeed: 50,
             backSpeed: 25,
@@ -50,6 +50,9 @@
         let succ = {{ session()->has('succ') ? 1 : 0 }}
         let succMsg = @json(session('succ'))
 
+        let error = {{ session()->has('error') ? 1 : 0 }}
+        let errorMsg = @json(session('error'))
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -58,7 +61,7 @@
                 popup: 'colored-toast',
             },
             showConfirmButton: false,
-            timer: 5000,
+            timer: 2000,
             timerProgressBar: true,
         });
 
@@ -66,6 +69,12 @@
             Toast.fire({
                 icon: 'info',
                 title: succMsg,
+            })
+        }
+        if (error) {
+            Toast.fire({
+                icon: 'error',
+                title: errorMsg,
             })
         }
     </script>

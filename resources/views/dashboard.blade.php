@@ -9,8 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Autour+One&family=Montserrat:wght@300&family=Nunito&family=Poppins:ital,wght@0,200;1,300&family=Quicksand&display=swap"
         rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{asset('css/build.css')}}"> --}}
-    @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{asset('css/build.css')}}">
+    {{-- @vite('resources/css/app.css') --}}
     <title>Dashboard</title>
 </head>
 
@@ -93,13 +93,16 @@
                                 {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y')}}
                             </td>
                             <td class="px-6 py-4">
-                                <form method="POST" action="/unduh">
+                                <form class="flex gap-3" method="POST" action="/unduh">
                                 @csrf
                                 <input type="hidden" name="id_data" value="{{$item->id}}">
                                 <button
                                     type="submit"
                                     class="bg-blue-500 hover:bg-blue-600 duration-500 rounded-md p-2 shadow-md text-white font-bold">Unduh
                                     surat</button>
+                                
+                                <a href="/admin/hapus-peminjam?id_barang={{ $item->id }}" onclick="return confirm('Yakin mau delete?')"
+                                        class="bg-blue-500 hover:bg-blue-600 duration-500 rounded-md p-2 shadow-md text-white font-bold">Hapus</a>
                                 </form>
                             </td>
                         </tr>
@@ -111,7 +114,7 @@
                     </tbody>
                 </table>
             </div>
-
+            {{$dataPinjam->links()}}
         </div>
     </section>
 
@@ -125,6 +128,53 @@
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let succ = {{ session()->has('succ') ? 1 : 0 }}
+        let succMsg = @json(session('succ'))
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast',
+            },
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        });
+
+        if (succ) {
+            Toast.fire({
+                icon: 'info',
+                title: succMsg,
+            })
+        }
+    </script>
+
+    <style>
+        .colored-toast.swal2-icon-info {
+            background-color: #3fc3ee !important;
+        }
+
+        .colored-toast.swal2-icon-error {
+            background-color: #f27474 !important;
+        }
+
+        .colored-toast .swal2-title {
+            color: white;
+        }
+
+        .colored-toast .swal2-close {
+            color: white;
+        }
+
+        .colored-toast .swal2-html-container {
+            color: white;
+        }
+    </style>
 </body>
 
 </html>

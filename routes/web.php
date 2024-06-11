@@ -19,6 +19,16 @@ Route::post('/post/form',[formController::class,'submitForm']);
 Route::get('/admin',[DashboardController::class,'index'])->middleware(CheckLogin::class)->name('dash');
 Route::post('/admin',[DashboardController::class,'searchData'])->middleware(CheckLogin::class)->name('dash');
 
+Route::get('/admin/barang',[DashboardController::class,'BarangIndex'])->middleware(CheckLogin::class);
+Route::get('/admin/tambah-barang',[DashboardController::class,'TambahBarangIndex'])->middleware(CheckLogin::class);
+Route::get('/admin/edit-barang',[DashboardController::class,'EditBarangIndex'])->middleware(CheckLogin::class);
+Route::get('/admin/hapus-barang',[DashboardController::class,'HapusBarang'])->middleware(CheckLogin::class);
+
+Route::get('/admin/hapus-peminjam',[DashboardController::class,'HapusPeminjam'])->middleware(CheckLogin::class);
+
+Route::post('/admin/tambah-barang',[DashboardController::class,'TambahBarang'])->middleware(CheckLogin::class);
+Route::post('/admin/edit-barang',[DashboardController::class,'EditBarang'])->middleware(CheckLogin::class);
+
 Route::get('/login', function () {
     return view('login');
 })->middleware(CheckGuest::class)->name('login');

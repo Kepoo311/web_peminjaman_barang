@@ -10,9 +10,9 @@
         href="https://fonts.googleapis.com/css2?family=Autour+One&family=Montserrat:wght@300&family=Nunito&family=Poppins:ital,wght@0,200;1,300&family=Quicksand&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-    {{-- <link rel="stylesheet" href="{{asset('css/build.css')}}"> --}}
+    <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
     <title>Form Pinjam</title>
 </head>
 
@@ -25,7 +25,7 @@
                 <h1 class="text-center font-bold font-nunito text-4xl">Form Peminjaman</h1>
             </div>
             <div class="w-full px-5 pt-10">
-                <form action="/post/form" method="POST" enctype="multipart/form-data">
+                <form id="form_pinjam" action="/post/form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="nama" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="no_telpon" class="block mb-2 text-sm font-medium text-gray-900">No telpon</label>
-                        <input type="text" id="no_telpon" name="no_telpon" placeholder="Nomor telpon anda.." autocomplete="off"
+                        <input type="text" id="no_telpon" name="no_telpon" placeholder="Ex. 089********" autocomplete="off"
                             value="{{ old('no_telpon') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         @error('no_telpon')
@@ -71,10 +71,9 @@
                         <select id="barang" name="barang"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option>Pilih barang</option>
-                            <option value="US" {{ old('barang') == 'US' ? 'selected' : '' }}>Leptop</option>
-                            <option value="CA" {{ old('barang') == 'CA' ? 'selected' : '' }}>Pesawat</option>
-                            <option value="FR" {{ old('barang') == 'FR' ? 'selected' : '' }}>Mobil</option>
-                            <option value="DE" {{ old('barang') == 'DE' ? 'selected' : '' }}>Kapal</option>
+                            @foreach ($dataBarang as $item)
+                            <option value="{{$item->id}}" {{ old('barang') == $item->id ? 'selected' : '' }}>{{$item->nama_barang}}</option>
+                            @endforeach
                         </select>
                         @error('barang')
                             <p class="text-md font-bold text-red-500">{{ $message }}</p>
@@ -137,7 +136,7 @@
                             <p class="text-md font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
-                    <button type="submit"
+                    <button id="submitButton" type="submit"
                         class="bg-blue-500 rounded-lg hover:bg-blue-600 duration-500 shadow-md text-white font-bold font-poppins text-lg p-2 w-full mt-3">Kirim</button>
                     <p class="text-lg text-center font-bold text-red-500 font-poppins mt-5">Mohon isi form dengan
                         benar.
@@ -149,6 +148,17 @@
         @include('components.footer')
     </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('form_pinjam');
+            const submitButton = document.getElementById('submitButton');
+        
+            form.addEventListener('submit', function (e) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Loading...';
+            });
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_telpon');
             $table->string('jabatan');
             $table->string('barang');
+            $table->string('kode_barang');
             $table->integer('jmlh_unit');
             $table->string('aksesoris')->nullable()->default('-');
             $table->string('keperluan');

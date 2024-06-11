@@ -43,6 +43,7 @@ class SuratController extends Controller
         $templateProcessor->setValue('no_telpon', $data->no_telpon);
         $templateProcessor->setValue('jabatan', $data->jabatan);
         $templateProcessor->setValue('barang', $data->barang);
+        $templateProcessor->setValue('kode_barang', $data->kode_barang);
         $templateProcessor->setValue('jmlh_unit', $data->jmlh_unit);
 
         if($data->aksesoris == NULL){
