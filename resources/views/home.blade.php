@@ -22,10 +22,12 @@
         <section class="h-dvh grid grid-cols-1 md:grid-cols-2 justify-items-center content-center px-10">
             <div class="md:order-2">
                 <img class="h-60" src="{{ asset('asset/undraw_delivery_truck_vt6p.svg') }}" alt="Rent svg">
+                <p class="text-xl md:text-4xl font-bold font-nunito text-center">BMN & PNBP</p>
             </div>
             <div class="md:order-1">
                 
-                <p class="text-2xl md:text-6xl font-bold font-nunito flex"><span id="typed"></span></p>
+                <p class="text-2xl md:text-6xl font-bold font-nunito flex">BPMP Provinsi Lampung</p>
+                <p class="text-xl md:text-4xl font-bold font-nunito flex"><span id="typed"></span></p>
                 <p class="text-sm md:text-lg font-poppins font-semibold text-gray-700 mb-4">Selamat datang di website
                     peminjaman barang!</p>
                 <a href="/form"

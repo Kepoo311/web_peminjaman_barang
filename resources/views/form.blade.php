@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     {{-- @vite('resources/css/app.css') --}}
     <title>Form Pinjam</title>
 </head>
@@ -21,7 +22,7 @@
     <section class="flex flex-col w-full h-full">
         @include('components.nav')
 
-        <section class="bg-white shadow-lg border md:w-[50rem] h-fit self-center mt-20 mb-5 rounded-lg">
+        <section data-aos="fade-down" data-aos-duration="500" class="bg-white shadow-lg border md:w-[50rem] h-fit self-center mt-20 mb-5 rounded-lg">
             <div class="w-full mt-3">
                 <h1 class="text-center font-bold font-nunito text-4xl">Form Peminjaman</h1>
             </div>
@@ -75,6 +76,7 @@
                             @foreach ($dataBarang as $item)
                             <option value="{{$item->id}}" {{ old('barang') == $item->id ? 'selected' : '' }}>{{$item->nama_barang}}</option>
                             @endforeach
+                            <option value="Lainnya" {{ old('barang') == 'Lainnya' ? 'selected' : '' }}>Lainnya..</option>
                         </select>
                         @error('barang')
                             <p class="text-md font-bold text-red-500">{{ $message }}</p>
@@ -149,7 +151,11 @@
         @include('components.footer')
     </section>
 
+    <script src="{{ asset('aos/aos.js') }}"></script>
+
     <script>
+        AOS.init();
+
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('form_pinjam');
             const submitButton = document.getElementById('submitButton');

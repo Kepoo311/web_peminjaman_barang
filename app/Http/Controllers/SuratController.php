@@ -39,6 +39,7 @@ class SuratController extends Controller
         $templateProcessor = new TemplateProcessor($templatePath);
 
         // Mengisi data ke template
+        $templateProcessor->setValue('no_srt', $data->id);
         $templateProcessor->setValue('nama', $data->nama);
         $templateProcessor->setValue('no_telpon', $data->no_telpon);
         $templateProcessor->setValue('jabatan', $data->jabatan);
